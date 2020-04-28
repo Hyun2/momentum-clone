@@ -1,0 +1,23 @@
+{
+  "name": "momentum-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hyun2/momentum-clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hyun2/momentum-clone/issues"
+  },
+  "homepage": "https://github.com/Hyun2/momentum-clone#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  }
+}

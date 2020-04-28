@@ -1,3 +1,4 @@
+// clock part
 const getTime = () => {
   const clock = document.querySelector(".clock");
   const now = new Date();
@@ -9,11 +10,11 @@ const getTime = () => {
   clock.innerHTML = `${time.h}:${time.m}:${time.s}`;
 };
 
-// ###
-const form = document.querySelector("form");
-const input = document.querySelector(".name");
+// name part
+const nameForm = document.querySelector("form.name");
+const input = document.querySelector("input.name");
 
-const handleSubmit = (e) => {
+const handleNameSubmit = (e) => {
   e.preventDefault();
   localStorage.setItem("currentUser", input.value);
   getUser();
@@ -29,10 +30,51 @@ const getUser = () => {
   }
 };
 
+// to do list part
+const todoForm = document.querySelector("form.todo");
+const todoUl = document.querySelector("ul.todo");
+const todoInput = document.querySelector("input.todo");
+let todoArray = JSON.parse(localStorage.getItem("todo")) || [];
+
+const addItemToList = (itemArray) => {
+  itemArray.map((item) => {
+    const li = document.createElement("li");
+    li.id = item.id;
+    li.innerText = item.text;
+    const delBtn = document.createElement("button");
+    delBtn.innerText = "x";
+    delBtn.addEventListener("click", () => {
+      todoUl.removeChild(li);
+      todoArray = todoArray.filter((todo) => todo.id !== parseInt(li.id));
+      localStorage.setItem("todo", JSON.stringify(todoArray));
+    });
+    li.append(delBtn);
+
+    todoUl.appendChild(li);
+    todoArray.push(item);
+    localStorage.setItem("todo", JSON.stringify(todoArray));
+  });
+};
+
+const handleTodoSubmit = (e) => {
+  e.preventDefault();
+  const item = {
+    id: new Date().getTime(),
+    text: todoInput.value,
+  };
+  addItemToList([item]);
+
+  todoInput.value = "";
+};
+
+// init
 const init = () => {
   getTime();
-  form.addEventListener("submit", handleSubmit);
+  nameForm.addEventListener("submit", handleNameSubmit);
+  todoForm.addEventListener("submit", handleTodoSubmit);
   getUser();
+  addItemToList(todoArray);
+
   setInterval(getTime, 1000);
 };
 
